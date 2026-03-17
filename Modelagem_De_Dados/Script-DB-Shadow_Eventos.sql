@@ -33,8 +33,8 @@ GO
 CREATE Table Inscricao (
 	InscricaoID INT PRIMARY KEY IDENTITY,
 
-	EventoID INT FOREIGN KEY REFERENCES Evento (EventoID),
-	ParticipanteID INT FOREIGN KEY REFERENCES Participante(ParticipanteID)
+	EventoID INT NOT NULL FOREIGN KEY REFERENCES Evento (EventoID),
+	ParticipanteID INT NOT NULL FOREIGN KEY REFERENCES Participante(ParticipanteID)
 
 	CONSTRAINT Inscricao_Evento_Participante UNIQUE (EventoID, ParticipanteID)
 );

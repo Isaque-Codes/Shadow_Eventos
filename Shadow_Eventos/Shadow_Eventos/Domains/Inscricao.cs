@@ -7,9 +7,9 @@ public partial class Inscricao
 {
     public int InscricaoID { get; set; }
 
-    public int? EventoID { get; set; }
+    public int EventoID { get; set; }
 
-    public int? ParticipanteID { get; set; }
+    public int ParticipanteID { get; set; }
 
     public virtual Evento? Evento { get; set; }
 

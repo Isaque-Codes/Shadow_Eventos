@@ -58,6 +58,8 @@ namespace Shadow_Eventos.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("{id}")]
         public ActionResult Atualizar(int id, AtualizarEventoDto atualizarEvento)
         {
             try
@@ -73,6 +75,7 @@ namespace Shadow_Eventos.Controllers
             }
         }
 
+        [HttpDelete]
         public ActionResult Deletar(int id)
         {
             try

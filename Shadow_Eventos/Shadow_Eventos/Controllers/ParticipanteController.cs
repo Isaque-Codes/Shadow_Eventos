@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shadow_Eventos.Applications.Services;
-using Shadow_Eventos.DTOs.PalestranteDto;
+using Shadow_Eventos.Domains;
 using Shadow_Eventos.DTOs.ParticipanteDto;
 using Shadow_Eventos.Exceptions;
 
@@ -9,31 +9,31 @@ namespace Shadow_Eventos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PalestranteController : ControllerBase
+    public class ParticipanteController : ControllerBase
     {
-        private readonly PalestranteService _service;
+        private readonly ParticipanteService _service;
 
-        public PalestranteController(PalestranteService service)
+        public ParticipanteController(ParticipanteService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public ActionResult<List<LerPalestranteDto>> Listar()
+        public ActionResult<List<LerParticipanteDto>> Listar()
         {
-            List<LerPalestranteDto> palestrantes = _service.Listar();
+            List<LerParticipanteDto> participantes = _service.Listar();
 
-            return StatusCode(200, palestrantes);
+            return Ok(participantes);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<LerPalestranteDto> BuscarPorId(int id)
+        public ActionResult<LerParticipanteDto> BuscarPorId(int id)
         {
             try
             {
-                LerPalestranteDto palestrante = _service.BuscarPorId(id);
+                LerParticipanteDto participante = _service.BuscarPorId(id);
 
-                return Ok(palestrante);
+                return participante;
             }
 
             catch (DomainException ex)
@@ -43,13 +43,13 @@ namespace Shadow_Eventos.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastrar(CriarPalestranteDto criarPalestrante)
+        public ActionResult Cadastrar(CriarParticipanteDto criarParticipante)
         {
             try
             {
-                _service.Cadastrar(criarPalestrante);
+                _service.Cadastrar(criarParticipante);
 
-                return StatusCode(201, criarPalestrante);
+                return StatusCode(201, criarParticipante);
             }
 
             catch (DomainException ex)
@@ -59,14 +59,15 @@ namespace Shadow_Eventos.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Atualizar(int id, AtualizarPalestranteDto atualizarPalestrante)
+        public ActionResult Atualizar(int id, AtualizarParticipanteDto atualizarParticipante)
         {
             try
             {
-                _service.Atualizar(id, atualizarPalestrante);
+                _service.Atualizar(id, atualizarParticipante);
 
                 return NoContent();
             }
+
             catch (DomainException ex)
             {
                 return BadRequest(ex.Message);
