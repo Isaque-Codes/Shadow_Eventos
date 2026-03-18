@@ -63,8 +63,8 @@ namespace Shadow_Eventos.Applications.Services
                 throw new DomainException("Os campos são obrigatórios.");
             }
 
-            var evento = _eventoRepository.BuscarPorId(criarInscricao.EventoID.Value);
-            var participante = _participanteRepository.BuscarPorId(criarInscricao.ParticipanteID.Value);
+            var evento = _eventoRepository.BuscarPorId(criarInscricao.EventoID);
+            var participante = _participanteRepository.BuscarPorId(criarInscricao.ParticipanteID);
 
             if (evento == null || participante == null)
             {
@@ -73,8 +73,8 @@ namespace Shadow_Eventos.Applications.Services
 
             Inscricao novaInscricao = new Inscricao
             {
-                EventoID = criarInscricao.EventoID.Value,
-                ParticipanteID = criarInscricao.ParticipanteID.Value
+                EventoID = criarInscricao.EventoID,
+                ParticipanteID = criarInscricao.ParticipanteID
             };
 
             _repository.Cadastrar(novaInscricao);
