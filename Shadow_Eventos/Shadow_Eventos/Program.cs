@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Shadow_Eventos.Applications.Services;
+using Shadow_Eventos.Contexts;
+using Shadow_Eventos.Interfaces;
+using Shadow_Eventos.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +11,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// CONEXÃO COM O BANCO
+builder.Services.AddDbContext<Shadow_EventosContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// EVENTO
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+builder.Services.AddScoped<EventoService>();
+
+// INSCRICAO
+builder.Services.AddScoped<IInscricaoRepository, InscricaoRepository>();
+builder.Services.AddScoped<InscricaoService>();
+
+// PALESTRANTE
+builder.Services.AddScoped<IPalestranteRepository, PalestranteRepository>();
+builder.Services.AddScoped<PalestranteService>();
+
+// PARTICIPANTE
+builder.Services.AddScoped<IParticipanteRepository, ParticipanteRepository>();
+builder.Services.AddScoped<ParticipanteService>();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
